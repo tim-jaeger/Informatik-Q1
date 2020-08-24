@@ -4,6 +4,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/*
+* To run a javafx class go to Run/Edit Configurations/Application/(class)/VM-Options and enter:
+* "--module-path /Users/timjaeger/Desktop/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml"
+* */
+
 public class HelloJavaFx extends Application {
 
     public void start(Stage primaryStage) {
