@@ -207,6 +207,34 @@ public class Feld extends Application {
     public void bSortieren_Action(Event evt) {
         // TODO hier Quelltext einf�gen
 
+        selectionSort();
+        
+        this.update();
+    } // end of bSortieren_Action
+    
+    public void selectionSort() {
+        
+        for(int i = 0; i < feld.length - 1; i++) {
+            
+            int positionMin = i;
+            
+            for(int j = i + 1; j < feld.length; j++) {
+                
+                if(feld[j] < feld[positionMin]) {
+                    
+                    positionMin = j;
+                }
+            }
+            
+            int element = feld[positionMin];
+            
+            feld[positionMin] = feld[i];
+            feld[i] = element;
+        }
+    }
+
+    public void insertionSort() {
+        
         int j, element;
 
         for (int i = 1; i < feld.length; i++) {
@@ -224,10 +252,8 @@ public class Feld extends Application {
 
             feld[j] = element;
         }
-
-        this.update();
-    } // end of bSortieren_Action
-
+    }
+    
     private void update(){
         numberField1.setInt(feld[0]);
         numberField2.setInt(feld[1]);
