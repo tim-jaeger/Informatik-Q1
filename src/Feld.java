@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.event.*;
 import java.util.Random;
+import java.util.Arrays;
 
 /**
  *
@@ -202,7 +203,33 @@ public class Feld extends Application {
     public void bSuchen_Action(Event evt) {
         // TODO hier Quelltext einf�gen
 
+        int eingabe = numberField16.getInt();
+
+        System.out.println("Gefunden an der Stelle " + binaerSuchen(eingabe, feld, 0, feld.length - 1));
+
     } // end of bSuchen_Action
+
+    private Integer binaerSuchen(int element, int[] feld, int start, int end) {
+
+        int middle = (start + end) / 2;
+
+        if (element == feld[middle]) {
+
+            return middle;
+        }
+        else if ((end - start) == 0) {
+
+            return null;
+        }
+        else if (element < feld[middle]) {
+
+            return binaerSuchen(element, feld, start, middle - 1);
+        }
+        else {
+
+            return  binaerSuchen(element, feld, middle + 1, end);
+        }
+    }
 
     public void bSortieren_Action(Event evt) {
         // TODO hier Quelltext einf�gen
@@ -211,6 +238,59 @@ public class Feld extends Application {
         
         this.update();
     } // end of bSortieren_Action
+
+    public int[] mergeSort(int[] feld) {
+
+        if (feld.length == 1) {
+
+            return feld;
+        }
+        else {
+
+            int grenze = (int) Math.ceil(feld.length / 2);
+            int[] linkerTeil = mergeSort(Arrays.copyOfRange(feld, 0, grenze));
+            int[] rechterTeil = mergeSort(Arrays.copyOfRange(feld, grenze, feld.length));
+
+            return zusammenfuehren(linkerTeil, rechterTeil);
+        } // end of if-else
+    }
+
+    private int[] zusammenfuehren(int[] linkerTeil, int[] rechterTeil) {
+
+        int indexLinks = 0;
+        int indexRechts = 0;
+
+        int[] result = new int[linkerTeil.length + rechterTeil.length];
+
+        for(int i = 0; i < result.length; i++) {
+
+            if (indexLinks >= linkerTeil.length) {
+
+                result[i] = rechterTeil[indexRechts];
+                indexRechts++;
+            } // end of if
+            else if(indexRechts >= rechterTeil.length) {
+
+                result[i] = linkerTeil[indexLinks];
+                indexLinks++;
+            }
+            else {
+
+                if (linkerTeil[indexLinks] <= rechterTeil[indexRechts]) {
+
+                    result[i] = linkerTeil[indexLinks];
+                    indexLinks++;
+                } // end of if
+                else {
+
+                    result[i] = rechterTeil[indexRechts];
+                    indexRechts++;
+                } // end of if-else
+            }
+        }
+
+        return result;
+    }
     
     public void selectionSort() {
         

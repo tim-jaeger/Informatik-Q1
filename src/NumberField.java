@@ -6,4 +6,9 @@ public class NumberField extends TextField {
 
         super.setText(Integer.toString(i));
     }
+
+    public int getInt() {
+
+        return Integer.valueOf(super.getText());
+    }
 }
