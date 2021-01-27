@@ -23,7 +23,7 @@ public class Turtle extends Canvas {
         position = new Point(x, y);
     }
 
-    public void turnTo(double angle) {
+    public void turn(double angle) {
 
         double r = angle * (Math.PI / 180.0);
 

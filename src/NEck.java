@@ -20,7 +20,7 @@ public class NEck extends Application {
     public void start(Stage stage) {
 
         Pane root = new Pane();
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 400, 200);
 
         turtle = new Turtle(500, 300);
         turtle.setLayoutX(0);
@@ -72,7 +72,7 @@ public class NEck extends Application {
         for(int i = 0; i < n; i++) {
 
             turtle.draw(length);
-            turtle.turnTo(angle);
+            turtle.turn(angle);
         }
     }
 
