@@ -19,14 +19,26 @@ public class List<E> {
 
     public E get(int index) {
 
-        Element<E> element = firstElement;
+        if (index < 0) {
 
-        for (int i = 0; i < index; i++) {
-
-            element = element.nextElement;
+            throw new IndexOutOfBoundsException();
         }
 
-        return element.value;
+        Element<E> element = firstElement;
+
+        try {
+
+            for (int i = 0; i < index; i++) {
+
+                element = element.nextElement;
+            }
+
+            return element.value;
+        }
+        catch (NullPointerException e) {
+
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public boolean remove(E element) {
@@ -38,15 +50,8 @@ public class List<E> {
             return false;
         }
 
-        try {
-
-            Element<E> nextElement = previousElement.nextElement.nextElement;
-            previousElement.nextElement = nextElement;
-        }
-        catch (NullPointerException e) {
-
-            previousElement.nextElement = null;
-        }
+        Element<E> nextElement = previousElement.nextElement.nextElement;
+        previousElement.nextElement = nextElement;
 
         return true;
     }
@@ -72,10 +77,32 @@ public class List<E> {
         if (start.nextElement == null) {
 
             return start;
-        }
-        else {
+        } else {
 
             return getLastElement(start.nextElement);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        List<Integer> list = new List<Integer>();
+
+        for(int i = 0; i < 10; i++) {
+
+            list.add(i);
+        }
+
+        for(int i = 0; i < 10; i++) {
+
+            System.out.println(list.get(i));
+        }
+
+        System.out.println(list.remove(7));
+        System.out.println(list.remove(100));
+
+        for(int i = 0; i < 10; i++) {
+
+            System.out.println(list.get(i)); //Soll bewusst den IndexOutOfBoundsException auslösen.
         }
     }
 }
