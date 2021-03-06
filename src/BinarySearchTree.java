@@ -105,29 +105,36 @@ public class BinarySearchTree<T extends Comparable<T>> {
         //Was sollte hier hin?
         if(node == null) {
             return node;
-            //Rekursionsanker: Wenn das zu löschende Element nicht im Baum vorhanden ist, wird null zurückgegeben. -> Es ändert sich nichts am Baum.
+            //Rekursionsanker: Wenn null übergeben wird...
         }else if(value.compareTo(node.getValue()) < 0){
+
             node.setLeftChild(delete(value, node.getLeftChild()));
             //Rekursionsschritt: Wenn der zu löschende Wert kleiner als der Ausgangsknoten ist, wird das Element ab den linken Kindknoten gesucht und gelöscht.
         }else if(value.compareTo(node.getValue()) > 0){
+
             node.setRightChild(delete(value, node.getRightChild()));
+
             //Rekursionsschritt: Wenn der zu löschende Wert größer als der Ausgangsknoten ist, wird das Element ab den rechten Kindknoten gesucht und gelöscht.
         }else{
             //Wenn der zu löschende Wert der Ausgangsknoten ist...
             if(node.getLeftChild() == null){
+
                 return node.getRightChild();
                 //Rekursionsanker: Wenn es keinen linken Kindknoten gibt, ersetzt der rechte Kindknoten den Ausgangsknoten.
+
             }else if(node.getRightChild() == null){
+
                 return node.getLeftChild();
             }else{
+
                 //Wenn es zwei Kindknoten gibt, wird der aktuelle Knoten durch das kleinste Element des linken Kindknotens ersetzt.
                 //Rekursionsschritt: Damit es nicht zweimal vorkommt, wird das kleinste Element gelöscht.
-                node.setValue(smallest(node.getLeftChild()));
+                node.setValue(biggest(node.getLeftChild()));
                 node.setLeftChild(delete(node.getValue(), node.getLeftChild()));
             }
         }
 
-        return node;
+        return node; //wird durch das 2. und 3. if else aufgerufen
     }
 
     /**
@@ -309,16 +316,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
         t.insert(42);
         t.insert(19);
         t.insert(10);
+        t.insert(1);
 
-        System.out.println(t.preorder());
         System.out.println(t.inorder());
-        System.out.println(t.postorder());
-
-        System.out.println(t.size(t.getRoot()));
-
-        System.out.println(t.smallest(t.getRoot()));
-        System.out.println(t.biggest(t.getRoot()));
-
         t.delete(17);
         System.out.println(t.inorder());
     }
